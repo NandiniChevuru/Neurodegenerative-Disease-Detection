@@ -1,0 +1,15 @@
+
+CODE/TK175756--partial code.zip
+
+# Ignore large machine learning model files
+*.h5
+*.keras
+*.pkl
+*.zip
+
+# Ignore temporary files
+__pycache__/
+*.pyc
+Thumbs.db
+
+large-files-report.csv

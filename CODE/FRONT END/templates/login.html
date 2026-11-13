@@ -1,0 +1,131 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div id="contact" class="contact">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-md-6">
+            <form id="request" class="main_form" onsubmit="return validateForm()" action="{{url_for('login')}}" method="post">
+               <div class="row">
+                  <div class="col-md-12 text-center mb-4">
+                     <h3 style="color: #333; font-size: 28px; font-weight: bold;">User Login Here</h3>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                     <input class="contactus" placeholder="Full Name" type="text" name="name" id="name" required>
+                  </div>
+
+                
+                  <div class="col-md-12 mb-3">
+                     <input class="contactus" placeholder="Email Address" type="email" name="email" id="email" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                     <input class="contactus" placeholder="Password" type="password" name="password" id="password" required>
+                  </div>
+
+                 
+                  <div class="col-md-12 text-center">
+                     <button class="send_btn" type="submit" style="background-color: #007bff; color: white; padding: 10px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Login</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+<style>
+   /* General styling for the form and input fields */
+   .contactus {
+      width: 100%;
+      padding: 12px;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 15px;
+      background-color: #2b1f1f49;
+      transition: border-color 0.3s ease;
+   }
+
+   .contactus:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+   }
+
+   /* Form section */
+   .main_form {
+      background-color: #54a0dd4b;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   }
+
+   /* Button styling */
+   .send_btn:hover {
+      background-color: #0056b3;
+   }
+
+   /* Heading styling */
+   h3 {
+      color: #333;
+      font-size: 30px;
+      font-weight: 600;
+   }
+
+   /* Container styling */
+   .contact {
+      padding: 70px 0;
+   }
+</style>
+
+<script>
+   // Function to validate the form
+   function validateForm() {
+      // Get the values of the fields
+      var name = document.getElementById('name').value;
+      var phone = document.getElementById('phone').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirm_password').value;
+
+      // Validate Name (should not be empty and should only contain alphabets and spaces)
+      var nameRegex = /^[A-Za-z\s]+$/;
+      if (!nameRegex.test(name)) {
+         alert("Please enter a valid name (only letters and spaces).");
+         return false;
+      }
+
+      // Validate Phone Number (should be a valid phone number format)
+      var phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(phone)) {
+         alert("Please enter a valid phone number (10 digits).");
+         return false;
+      }
+
+      // Validate Email (should be a valid email format)
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+         alert("Please enter a valid email address.");
+         return false;
+      }
+
+      // Validate Password (should be at least 6 characters long)
+      if (password.length < 6) {
+         alert("Password must be at least 6 characters long.");
+         return false;
+      }
+
+      // Validate Confirm Password (should match the password)
+      if (password !== confirmPassword) {
+         alert("Passwords do not match.");
+         return false;
+      }
+
+      // If all validations pass
+      return true;
+   }
+</script>
+
+{% endblock %}

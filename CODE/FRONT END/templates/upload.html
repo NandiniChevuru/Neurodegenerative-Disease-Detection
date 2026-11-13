@@ -1,0 +1,87 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<section class="d-flex justify-content-center align-items-center min-vh-100 banner_main2" style="background-color: rgb(44, 189, 157);">
+  <div class="container" style="background-color: rgba(255, 255, 255, 0.9); padding: 40px 50px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 100px;">
+    
+    <!-- Flash Messages Section -->
+    <div class="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="alert alert-dismissible mt-3">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} text-center" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-8">
+        <div class="detail-box text-center">
+          <div class="heading_container mb-8">
+            <h2 class="font-weight-bold" style="color: #333;">Upload Your Image</h2>
+          </div>
+          
+          <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="fileInput" class="font-weight-bold" style="color: #555;">Choose a file to upload:</label>
+              <input type="file" class="form-control" id="fileInput" name="file" required style="border-radius: 5px; border: 2px solid #ddd;">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" style="padding: 10px 30px; border-radius: 5px; background-color: #007bff; border: none;">Upload</button>
+          </form>
+
+          <!-- Prediction Result Section -->
+          <div class="prediction-result-section mt-4">
+            {% if prediction %}
+            <div class="prediction-result alert alert-success mt-3" style="font-size: 18px;">
+              <strong>Prediction:</strong> {{ prediction }}
+            </div>
+            
+            <!-- Display the Prediction Details in a Table -->
+            <table class="table table-bordered mt-4" style="border-color: #007bff; background-color: #f8f9fa; font-size: 18px;">
+              <thead style="background-color: #007bff; color: white;">
+                <tr>
+                  <th scope="col">Disease</th>
+                  <th scope="col">Precautions</th>
+                  <th scope="col">Reasons</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color: #e9f7fd;">
+                  <td>{{ prediction }}</td>
+                  <td>
+                    {% for precaution in precautions %}
+                      <p style="text-align: justify;">{{ precaution }}</p>
+                    {% endfor %}
+                  </td>
+                  <td>
+                    {% for reason in reasons %}
+                      <p style="text-align: justify;">{{ reason }}</p>
+                    {% endfor %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Display the uploaded image -->
+            <img src="{{ url_for('static', filename='Upload_images/' + fn) }}" alt="Uploaded Image" class="img-fluid mt-3" style="max-width: 100%; border-radius: 8px;">
+            {% elif mypath %}
+            <div class="alert alert-info mt-3" style="font-size: 18px;">
+              <strong>Uploaded Image:</strong>
+            </div>
+            <img src="{{ url_for('static', filename='Upload_images/' + fn) }}" alt="Uploaded Image" class="img-fluid mt-3" style="max-width: 100%; border-radius: 8px;">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

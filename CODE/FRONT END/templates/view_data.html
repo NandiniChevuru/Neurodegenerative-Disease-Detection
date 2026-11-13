@@ -1,0 +1,55 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<div class="banner_main"> 
+    <section class="slick-slideshow">
+    <div class="slick-custom">
+        <img src="/static/images/slideshow/medium-shot-business-women-high-five.jpeg" class="img-fluid" alt="">
+        <div class="slick-bottom">
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="table-container" style="background-color: rgba(49, 161, 226, 0.9); padding: 40px 50px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);margin-top: 150px;margin-bottom: 150px;">
+                    <h2 class="text-center" style="color: rgb(0, 0, 0); font-size: 30px; font-weight: bold;">Predictions Text Data</h2>
+                    
+                    <!-- Table Section -->
+                    <table class="table table-bordered table-striped mt-8" style="background-color: rgba(113, 53, 53, 0.171); font-size: 16px;">
+                        <thead>
+                            <tr style="background-color: #007bff; color: rgb(0, 0, 0);">
+                                <th scope="col">S.NO</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Disease</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in data %}
+                            <tr style="color: rgb(0, 0, 0);font-weight: bold;">
+                                <td>{{ loop.index }}</td> <!-- Displaying row count -->
+                                <td>{{ row[0] }}</td>
+                                <td>{{ row[1] }}</td>
+                                <td>{{ row[2] }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<!-- Data Table Section -->
+<section class="container mt-5">
+</section>
+
+{% endblock %}
+
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
